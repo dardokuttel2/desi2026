@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Calculadora</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div class="starter-template">
+        <h1>TUTI</h1>
+        <h2>
+            Calculadora
+        </h2>
+    </div>
+    <form  th:action="@{/calculadora}" th:object="${formBean}" method="post">
+    	
+    	
+    	<input  type="number"  id="id" th:field="*{a}" >+
+    	<input  type="number"  id="id" th:field="*{b}" >
+    	
+    	
+		<button type="submit" name="action" value="sumar">Sumar</button>
+	    <button type="submit" name="action" value="restar">Restar</button>
+	    <button type="submit" name="action" value="multiplicar">Multiplicar</button>
+	    <button type="submit" name="action" value="dividir">Dividir</button>
+		<br>
+    	<label>Resultado:</label>
+    	<span th:text="*{resultado}"></span>
+    </form>
+</body>
+</html>	

@@ -1,4 +1,4 @@
-package tuti.desi.presentacion.provincias;
+package tuti.desi.presentacion.caluladora;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

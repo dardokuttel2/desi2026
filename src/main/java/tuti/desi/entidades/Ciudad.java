@@ -5,7 +5,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 /**
- * Ciudades 
+ * Ciudades .kljsdfgk.jsedfgn
  * @author dardo
  *
  */

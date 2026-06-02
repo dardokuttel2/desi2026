@@ -5,6 +5,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Id;
 
+/**
+ * comentario 2
+ * @author dardo
+ *
+ */
 @Entity
 public class Ciudad {
 	

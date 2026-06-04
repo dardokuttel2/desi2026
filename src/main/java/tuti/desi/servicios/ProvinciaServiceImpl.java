@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import tuti.desi.accesoDatos.IProvinciaRepo;
 import tuti.desi.entidades.Provincia;
+import tuti.desi.excepciones.EntidadNoEncontradaException;
 import tuti.desi.excepciones.Excepcion;
 import tuti.desi.presentacion.provincias.ProvinciasBuscarForm;
 
@@ -25,17 +26,18 @@ public class ProvinciaServiceImpl implements ProvinciaService {
 		return repo.findAll();
 	}
 
-
-
 	@Override
 	public Provincia getById(Long idProvincia) {
-		return repo.findById(idProvincia).get();
+		return repo.findById(idProvincia)
+				.orElseThrow(() -> new EntidadNoEncontradaException("la provincia", idProvincia));
 	}
 	
 	@Override
 	public void deleteByid(Long id) {
+		if (!repo.existsById(id)) {
+			throw new EntidadNoEncontradaException("la provincia", id);
+		}
 		repo.deleteById(id);
-		
 	}
 	
 	@Override
@@ -58,7 +60,6 @@ public class ProvinciaServiceImpl implements ProvinciaService {
 				throw new Excepcion("Ya existe una provincia con el mismo nombre");  
 			else
 				repo.save(p);
-				
 		}
 		else
 		{
@@ -68,7 +69,5 @@ public class ProvinciaServiceImpl implements ProvinciaService {
 			else
 				repo.save(p);
 		}
-		
 	}
-
 }

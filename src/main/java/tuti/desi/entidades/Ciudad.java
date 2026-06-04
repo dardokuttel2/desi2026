@@ -4,6 +4,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Size;
 /**
  * Ciudades del pais
  * @author dardo
@@ -17,9 +18,10 @@ public class Ciudad {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Size(min = 1,max = 100, message = "El nombre es obligatorio")
 	private String nombre;
 	
-	@ManyToOne()
+	@ManyToOne(optional = false)
 	private Provincia provincia;
 	
 	

@@ -2,11 +2,13 @@ package tuti.desi.entidades;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Provincia {
@@ -16,6 +18,8 @@ public class Provincia {
 	private Long id;
 	
 	
+	@Size(min = 1,max = 100, message = "El nombre es obligatorio")
+	@Column(unique = true)
 	private String nombre;
 	
 	@OneToMany(mappedBy = "provincia")

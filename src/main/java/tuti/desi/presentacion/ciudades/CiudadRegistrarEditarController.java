@@ -57,7 +57,7 @@ public class CiudadRegistrarEditarController {
         return this.servicioProvincia.getAll();
     }
 	
-	@RequestMapping(path = "/delete/{id}", method = RequestMethod.GET)
+	@RequestMapping(path = "/delete/{id}", method = RequestMethod.POST)
 	public String deleteById(Model model, @PathVariable("id") Long id) 
 	{
 		servicioCiudad.deleteByid(id);

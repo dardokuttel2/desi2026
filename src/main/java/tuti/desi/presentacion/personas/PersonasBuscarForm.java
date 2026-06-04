@@ -1,22 +1,18 @@
 package tuti.desi.presentacion.personas;
 
-import jakarta.validation.constraints.NotNull;
-
 public class PersonasBuscarForm {
-	@NotNull
 	private Long dni;
 	private String nombre;
-	private String tipoDoc;
-	private String ciudadSeleccionada;
+	private Long ciudadSeleccionada;
 	
 	
 //	private List<Ciudad> ciudades;
 
 	
-	public String getCiudadSeleccionada() {
+	public Long getCiudadSeleccionada() {
 		return ciudadSeleccionada;
 	}
-	public void setCiudadSeleccionada(String ciudadSeleccionada) {
+	public void setCiudadSeleccionada(Long ciudadSeleccionada) {
 		this.ciudadSeleccionada = ciudadSeleccionada;
 	}
 //	public List<Ciudad> getCiudades() {
@@ -43,12 +39,4 @@ public class PersonasBuscarForm {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getTipoDoc() {
-		return tipoDoc;
-	}
-	public void setTipoDoc(String tipoDoc) {
-		this.tipoDoc = tipoDoc;
-	}
-	
-
 }

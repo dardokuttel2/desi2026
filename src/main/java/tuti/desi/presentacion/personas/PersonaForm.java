@@ -18,6 +18,7 @@ public class PersonaForm {
 	@NotNull(message = "el dni no puede ser nulo")
 	@Min(value = 7000000, message = "el dni debe ser mayor a 7000000")
 	private Long dni;
+	private Long dniOriginal; //es el dni que leí de la base de datos, no el que se editó
 	@NotNull
 	@Size(min=2, max=30)
 	private String apellido;
@@ -38,6 +39,7 @@ public class PersonaForm {
 		this.nombre=p.getNombre();
 		this.apellido=p.getApellido();
 		this.dni=p.getDni();
+		this.dniOriginal=p.getDni();
 		this.idCiudad=p.getCiudad().getId();
 		this.fechaNacimiento=p.getFechaNacimiento();
 	}
@@ -46,6 +48,12 @@ public class PersonaForm {
 	}
 	public void setDni(Long dni) {
 		this.dni = dni;
+	}
+	public Long getDniOriginal() {
+		return dniOriginal;
+	}
+	public void setDniOriginal(Long dniOriginal) {
+		this.dniOriginal = dniOriginal;
 	}
 	public String getApellido() {
 		return apellido;

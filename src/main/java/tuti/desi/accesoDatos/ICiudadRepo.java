@@ -24,8 +24,8 @@ public interface ICiudadRepo extends JpaRepository<Ciudad, Long> {
 	 * @param idDistintoDe
 	 * @return
 	 */
-	@Query("SELECT c FROM Ciudad c WHERE c.nombre like :nombre and c.provincia.id=:idProvinciaSeleccionada and c.provincia.id<>:idDistintoDe")
-	List<Ciudad> findByNombreAndIdProvinciaAndIdNot(String nombre, Long idProvinciaSeleccionada,Long idDistintoDe);
+	@Query("SELECT c FROM Ciudad c WHERE c.nombre like :nombre and c.provincia.id=:idProvinciaSeleccionada and c.id<>:idDistintoDe")
+	List<Ciudad> findOtraCiudadByNombreAndProvincia(String nombre, Long idProvinciaSeleccionada,Long idDistintoDe);
 	
 
 }

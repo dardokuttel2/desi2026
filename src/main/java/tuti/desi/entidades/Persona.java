@@ -1,9 +1,9 @@
 package tuti.desi.entidades;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 
@@ -12,6 +12,7 @@ import jakarta.validation.constraints.Size;
 public class Persona {
 	
 	@Id
+	@NotNull
 	private Long dni;
 	
 	@Size(min = 1,max = 100, message = "El nombre es obligatorio")
@@ -20,7 +21,6 @@ public class Persona {
 	@Size(min = 1,max = 100, message = "El apellido es obligatorio")
 	private String apellido;
 	
-	@Column(name="fechanacimiento")
 	private java.time.LocalDate fechaNacimiento;
 	
 	@ManyToOne

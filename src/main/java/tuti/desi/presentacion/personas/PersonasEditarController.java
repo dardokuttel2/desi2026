@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.validation.Valid;
 import tuti.desi.entidades.Ciudad;
 import tuti.desi.entidades.Persona;
+import tuti.desi.excepciones.Excepcion;
 import tuti.desi.servicios.CiudadService;
 import tuti.desi.servicios.PersonaService;
 
@@ -47,7 +50,7 @@ public class PersonasEditarController {
         return this.serviceCiudad.getAll();
     }
 	
-	@RequestMapping(path = "/delete/{id}", method = RequestMethod.GET)
+	@RequestMapping(path = "/delete/{id}", method = RequestMethod.POST)
 	public String deletePersonaById(Model model, @PathVariable("id") Long id) 
 	{
 		service.deletePersonaByid(id);
@@ -71,11 +74,20 @@ public class PersonasEditarController {
     		}
     		else
     		{
-    			Persona p=formBean.toPojo();
-    			p.setCiudad(serviceCiudad.getById(formBean.getIdCiudad()));
-    			service.save(p);
-    			
-    			return "redirect:/personasBuscar";
+                try {
+                    Persona p=formBean.toPojo();
+                    p.setCiudad(serviceCiudad.getById(formBean.getIdCiudad()));
+                    service.save(p, formBean.getDniOriginal());
+                    return "redirect:/personasBuscar";
+                } catch (Excepcion e) {
+                    if (e.getAtributo() == null) {
+                        result.addError(new ObjectError("globalError", e.getMessage()));
+                    } else {
+                        result.addError(new FieldError("formBean", e.getAtributo(), e.getMessage()));
+                    }
+                    modelo.addAttribute("formBean", formBean);
+                    return "personasEditar";
+                }
     		}
 
     		

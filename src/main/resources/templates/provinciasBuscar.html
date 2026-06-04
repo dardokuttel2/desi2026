@@ -48,16 +48,18 @@
 	                    </a>
 	                </td>
 	                <td>
-	                    <a th:href="@{/provinciaEditar/delete/{id}(id=${p.id})}" 
+	                    <button type="submit"
+                            th:formaction="@{/provinciaEditar/delete/{id}(id=${p.id})}"
+                            formmethod="post"
 	                    	class="btn btn-primary"
 	                    	th:text="#{links.eliminar}"
 	                    	onclick="return confirm('¿Estás seguro que deseas eliminar esta provincia?');" 
 	                    	>
-	                    </a>
+	                    </button>
 	                </td>
 		      	</tr>
 		    </tbody>
 	    </table>
 	</form>
 </body>
-</html>	
+</html>

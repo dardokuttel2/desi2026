@@ -3,6 +3,7 @@ package tuti.desi.servicios;
 import java.util.List;
 
 import tuti.desi.entidades.Persona;
+import tuti.desi.excepciones.Excepcion;
 import tuti.desi.presentacion.personas.PersonasBuscarForm;
 
 public interface PersonaService {
@@ -17,7 +18,7 @@ public interface PersonaService {
 	 * Si la persona existe la actualizará, sino la creará en BD
 	 * @param persona
 	 */
-	void save(Persona persona);
+	void save(Persona persona, Long dniOriginal) throws Excepcion;
 
 	/**
 	 * permite obtener una persona determinada 
@@ -25,7 +26,7 @@ public interface PersonaService {
 	 * @return persona encontrada o null si no encontr{o la persona
 	 * @throws Exception ante un error
 	 */
-	Persona getPersonaById(Long idPersona) throws Exception;
+	Persona getPersonaById(Long idPersona);
 
 	void deletePersonaByid(Long id);
 

@@ -1,94 +1,129 @@
 package tuti.desi.presentacion.personas;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import tuti.desi.entidades.Persona;
 
-/**
- * Objeto necesario para insertar o eliminar una persona. 
- * Nótese que en lugar de referenciar al objeto Ciudad, reemplaza ese atributo por el idCiudad, ya que es el valor que asocia la lista seleccionable de la interfaz web
- *
- */
 public class PersonaForm {
 
-	@NotNull(message = "el dni no puede ser nulo")
-	@Min(value = 7000000, message = "el dni debe ser mayor a 7000000")
-	private Long dni;
-	private Long dniOriginal; //es el dni que leí de la base de datos, no el que se editó
-	@NotNull
-	@Size(min=2, max=30)
-	private String apellido;
-	@NotNull
-	@Size(min=2, max=30)
+	private Long id;
+
+	@NotBlank(message = "El nombre es obligatorio")
+	@Size(max = 100)
 	private String nombre;
-	@NotNull
-	private Long idCiudad;
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@Past
-	private java.time.LocalDate fechaNacimiento;
+
+	@NotBlank(message = "El apellido es obligatorio")
+	@Size(max = 100)
+	private String apellido;
+
+	@NotBlank(message = "El DNI/CUIT es obligatorio")
+	@Pattern(regexp = "\\d{7,11}", message = "El DNI/CUIT debe contener entre 7 y 11 dígitos")
+	private String dniCuit;
+
+	@NotBlank(message = "El teléfono es obligatorio")
+	@Size(max = 30)
+	private String telefono;
+
+	@NotBlank(message = "El email es obligatorio")
+	@Email(message = "El email no tiene un formato válido")
+	@Size(max = 150)
+	private String email;
+
+	@NotBlank(message = "El domicilio es obligatorio")
+	@Size(max = 200)
+	private String domicilio;
 	
+	private Long idCiudad;
+
 	public PersonaForm() {
-		super();
 	}
-	public PersonaForm(Persona p) {
-		super();
-		this.nombre=p.getNombre();
-		this.apellido=p.getApellido();
-		this.dni=p.getDni();
-		this.dniOriginal=p.getDni();
-		this.idCiudad=p.getCiudad().getId();
-		this.fechaNacimiento=p.getFechaNacimiento();
+
+	public PersonaForm(Persona persona) {
+		this.id = persona.getId();
+		this.nombre = persona.getNombre();
+		this.apellido = persona.getApellido();
+		this.dniCuit = persona.getDniCuit();
+		this.telefono = persona.getTelefono();
+		this.email = persona.getEmail();
+		this.domicilio = persona.getDomicilio();
+		this.idCiudad = persona.getCiudad() == null ? null : persona.getCiudad().getId();
 	}
-	public Long getDni() {
-		return dni;
+
+	public Persona toPojo() {
+		Persona persona = new Persona();
+		persona.setId(id);
+		persona.setNombre(nombre);
+		persona.setApellido(apellido);
+		persona.setDniCuit(dniCuit);
+		persona.setTelefono(telefono);
+		persona.setEmail(email);
+		persona.setDomicilio(domicilio);
+		return persona;
 	}
-	public void setDni(Long dni) {
-		this.dni = dni;
+
+	public Long getId() {
+		return id;
 	}
-	public Long getDniOriginal() {
-		return dniOriginal;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
-	public void setDniOriginal(Long dniOriginal) {
-		this.dniOriginal = dniOriginal;
-	}
-	public String getApellido() {
-		return apellido;
-	}
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
+
 	public String getNombre() {
 		return nombre;
 	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+	public String getDniCuit() {
+		return dniCuit;
+	}
+
+	public void setDniCuit(String dniCuit) {
+		this.dniCuit = dniCuit;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getDomicilio() {
+		return domicilio;
+	}
+
+	public void setDomicilio(String domicilio) {
+		this.domicilio = domicilio;
+	}
+
 	public Long getIdCiudad() {
 		return idCiudad;
 	}
+
 	public void setIdCiudad(Long idCiudad) {
 		this.idCiudad = idCiudad;
 	}
-	
-	public Persona toPojo()
-	{
-		Persona p = new Persona();
-		p.setDni(this.getDni());
-		p.setApellido(this.getApellido());
-		p.setNombre(this.getNombre());
-		p.setDni(this.getDni());
-		p.setFechaNacimiento(this.getFechaNacimiento());
-		return p;
-	}
-	public java.time.LocalDate getFechaNacimiento() {
-		return fechaNacimiento;
-	}
-	public void setFechaNacimiento(java.time.LocalDate fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}
-
 }

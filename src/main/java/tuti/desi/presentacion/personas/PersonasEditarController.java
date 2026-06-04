@@ -1,7 +1,7 @@
 package tuti.desi.presentacion.personas;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.validation.Valid;
-import tuti.desi.entidades.Ciudad;
 import tuti.desi.entidades.Persona;
+import tuti.desi.entidades.Ciudad;
 import tuti.desi.excepciones.Excepcion;
 import tuti.desi.servicios.CiudadService;
 import tuti.desi.servicios.PersonaService;
@@ -30,12 +30,12 @@ public class PersonasEditarController {
 	@Autowired
     private PersonaService service;
 	@Autowired
-    private CiudadService serviceCiudad;
+	private CiudadService serviceCiudad;
      
     @RequestMapping(path = {"", "/{id}"},method=RequestMethod.GET)
-    public String preparaForm(Model modelo, @PathVariable("id") Optional<Long> dni) throws Exception {
-    	if (dni.isPresent()) {
-    		Persona entity = service.getPersonaById(dni.get());
+    public String preparaForm(Model modelo, @PathVariable("id") Optional<Long> id) {
+        if (id.isPresent()) {
+            Persona entity = service.getPersonaById(id.get());
     		PersonaForm form = new PersonaForm(entity);
 			modelo.addAttribute("formBean", form);
 		} else {
@@ -44,12 +44,12 @@ public class PersonasEditarController {
 		}
        return "personasEditar";
     }
-     
+
     @ModelAttribute("allCiudades")
     public List<Ciudad> getAllCiudades() {
-        return this.serviceCiudad.getAll();
+        return serviceCiudad.getAll();
     }
-	
+     
 	@RequestMapping(path = "/delete/{id}", method = RequestMethod.POST)
 	public String deletePersonaById(Model model, @PathVariable("id") Long id) 
 	{
@@ -76,8 +76,10 @@ public class PersonasEditarController {
     		{
                 try {
                     Persona p=formBean.toPojo();
-                    p.setCiudad(serviceCiudad.getById(formBean.getIdCiudad()));
-                    service.save(p, formBean.getDniOriginal());
+                    if (formBean.getIdCiudad() != null) {
+                        p.setCiudad(serviceCiudad.getById(formBean.getIdCiudad()));
+                    }
+                    service.save(p);
                     return "redirect:/personasBuscar";
                 } catch (Excepcion e) {
                     if (e.getAtributo() == null) {

@@ -1,70 +1,56 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title><span th:text="#{persona.editar.titulo}"/></title>
+    <title><span th:text="#{persona.editar.titulo}"></span></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </head>
-
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-
-<script>
-    $(document).ready(function(){
-      var date_input=$('input[name="fechaNacimiento"]'); 
-      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-      var options={
-        format: 'dd/mm/yyyy',
-        container: container,
-        todayHighlight: true,
-        autoclose: true,
-      };
-      date_input.datepicker(options);
-    })
-</script>
 <body>
-
-	
-	<div class="starter-template">
-        <h1><span  th:text="#{empresa}" /></h1>
-        <h2>
-            <span th:text="#{persona.editar.titulo}"></span>
-        </h2>
+    <div class="starter-template">
+        <h1><span th:text="#{empresa}"></span></h1>
+        <h2 th:text="${formBean.id} ? #{persona.editar.titulo} : #{persona.registrar.titulo}"></h2>
     </div>
-    
-<form  th:action="@{/personasEditar}" th:object="${formBean}" method="post">
-	<p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="error" />
-	<input type="hidden" th:field="*{dniOriginal}">
-	<table border="0" style="align-self: center;">
-		 
-        <tr>
-            <td><label th:text="#{persona.dni}" /></td>
-            <td><input type="number" th:field="*{dni}" th:readonly="${formBean.dniOriginal != null}" /></td>
-             <td> <p th:if="${#fields.hasErrors('dni')}" th:errorclass="error" th:errors="*{dni}" /> </td> 
-        </tr>
-        <tr>
-            <td><label th:text="#{persona.nombre}" /></td>
-            <td><input type="text" th:field="*{nombre}" /></td> 
-            <td> <p th:if="${#fields.hasErrors('nombre')}" th:errorclass="error" th:errors="*{nombre}" /> </td> 
-        </tr>
-        <tr>
-            <td><label th:text="#{persona.apellido}" /></td>
-            <td><input type="text" th:field="*{apellido}" /></td> 
-            <td> <p th:if="${#fields.hasErrors('apellido')}" th:errorclass="error" th:errors="*{apellido}" /> </td> 
-        </tr>
-        <tr>
-            <td><label th:text="#{persona.f.nac}" /></td>
-            <td><input type="text" id="fechaNacimiento" autocomplete="off" th:field="*{fechaNacimiento}" placeholder="DD/MM/YYYY"  /></td> 
-            <td> <p th:if="${#fields.hasErrors('fechaNacimiento')}" th:errorclass="error" th:errors="*{fechaNacimiento}" /> </td> 
-            
-                    
-        </tr>
-        <tr>
+
+    <form th:action="@{/personasEditar}" th:object="${formBean}" method="post">
+        <p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="error"></p>
+        <input type="hidden" th:field="*{id}">
+
+        <table border="0" style="align-self: center;">
+            <tr>
+                <td><label th:text="#{persona.dniCuit}"></label></td>
+                <td><input type="text" th:field="*{dniCuit}" maxlength="11" /></td>
+                <td><p th:if="${#fields.hasErrors('dniCuit')}" th:errorclass="error" th:errors="*{dniCuit}"></p></td>
+            </tr>
+            <tr>
+                <td><label th:text="#{persona.nombre}"></label></td>
+                <td><input type="text" th:field="*{nombre}" /></td>
+                <td><p th:if="${#fields.hasErrors('nombre')}" th:errorclass="error" th:errors="*{nombre}"></p></td>
+            </tr>
+            <tr>
+                <td><label th:text="#{persona.apellido}"></label></td>
+                <td><input type="text" th:field="*{apellido}" /></td>
+                <td><p th:if="${#fields.hasErrors('apellido')}" th:errorclass="error" th:errors="*{apellido}"></p></td>
+            </tr>
+            <tr>
+                <td><label th:text="#{persona.telefono}"></label></td>
+                <td><input type="tel" th:field="*{telefono}" /></td>
+                <td><p th:if="${#fields.hasErrors('telefono')}" th:errorclass="error" th:errors="*{telefono}"></p></td>
+            </tr>
+            <tr>
+                <td><label th:text="#{persona.email}"></label></td>
+                <td><input type="email" th:field="*{email}" /></td>
+                <td><p th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}"></p></td>
+            </tr>
+            <tr>
+                <td><label th:text="#{persona.domicilio}"></label></td>
+                <td><input type="text" th:field="*{domicilio}" /></td>
+                <td><p th:if="${#fields.hasErrors('domicilio')}" th:errorclass="error" th:errors="*{domicilio}"></p></td>
+            </tr>
+             <tr>
             <td><label th:text="#{persona.ciudad}" /></td>
             <td>
 		        <select th:field="*{idCiudad}">
+				  <option value=""></option>
 				  <option th:each="c : ${allCiudades}" 
 				          th:value="${c.id}" 
 				          th:text="${c.nombre}"></option>
@@ -72,20 +58,14 @@
 			</td>
 			<td> <p th:if="${#fields.hasErrors('idCiudad')}" th:errorclass="error" th:errors="*{idCiudad}" /> </td>
 		</tr>
-        
-         
-  </table>
-  <table class="botones">
+        </table>
 
-      <tr>
-	      <td><input type="submit" name="action" value="Aceptar" /></td>
-	      <td><input type="submit" name="action" value="Cancelar" /></td>
-      </tr>
-        
-    </table>
-    
-    
-   
-</form>
+        <table class="botones">
+            <tr>
+                <td><input type="submit" name="action" value="Aceptar" /></td>
+                <td><input type="submit" name="action" value="Cancelar" /></td>
+            </tr>
+        </table>
+    </form>
 </body>
 </html>

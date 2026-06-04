@@ -18,7 +18,7 @@ public interface PersonaService {
 	 * Si la persona existe la actualizará, sino la creará en BD
 	 * @param persona
 	 */
-	void save(Persona persona, Long dniOriginal) throws Excepcion;
+	void save(Persona persona) throws Excepcion;
 
 	/**
 	 * permite obtener una persona determinada 

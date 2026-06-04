@@ -12,15 +12,18 @@ import tuti.desi.entidades.Persona;
 @Repository
 public interface IPersonaRepo extends JpaRepository<Persona, Long> {
 
+	boolean existsByDniCuit(String dniCuit);
+
+	boolean existsByDniCuitAndIdNot(String dniCuit, Long id);
+
 	@Query("""
 			SELECT p FROM Persona p
 			WHERE (:nombre IS NULL OR LOWER(p.nombre) LIKE LOWER(CONCAT('%', :nombre, '%')))
-			  AND (:dni IS NULL OR p.dni = :dni)
+			  AND (:dniCuit IS NULL OR p.dniCuit = :dniCuit)
 			  AND (:idCiudad IS NULL OR p.ciudad.id = :idCiudad)
 			""")
 	List<Persona> filter(
 			@Param("nombre") String nombre,
-			@Param("dni") Long dni,
+			@Param("dniCuit") String dniCuit,
 			@Param("idCiudad") Long idCiudad);
-	
 }

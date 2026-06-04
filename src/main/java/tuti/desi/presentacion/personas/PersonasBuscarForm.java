@@ -7,7 +7,7 @@ public class PersonasBuscarForm {
 	private Long ciudadSeleccionada;
 
 	public String getDniCuit() {
-		return dniCuit;
+		return normalizar(dniCuit);
 	}
 
 	public void setDniCuit(String dniCuit) {
@@ -15,7 +15,7 @@ public class PersonasBuscarForm {
 	}
 
 	public String getNombre() {
-		return nombre;
+		return normalizar(nombre);
 	}
 
 	public void setNombre(String nombre) {
@@ -30,5 +30,7 @@ public class PersonasBuscarForm {
 		this.ciudadSeleccionada = ciudadSeleccionada;
 	}
 
-	
+	private String normalizar(String valor) {
+		return valor == null || valor.isBlank() ? null : valor.trim();
+	}
 }

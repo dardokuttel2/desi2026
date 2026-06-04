@@ -1,7 +1,6 @@
 package tuti.desi.presentacion.ciudades;
 
-import org.antlr.v4.runtime.misc.NotNull;
-
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import tuti.desi.entidades.Ciudad;
 

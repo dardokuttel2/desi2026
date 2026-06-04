@@ -2,7 +2,6 @@ package tuti.desi.presentacion.personas;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
@@ -11,7 +10,7 @@ import tuti.desi.entidades.Persona;
 
 /**
  * Objeto necesario para insertar o eliminar una persona. 
- * Nótese que en lugar de referenciar al objeto Ciudad, reemplaza ese atributo por el idCiudad, lo cual resulta mas sencillo de representar en JSON
+ * Nótese que en lugar de referenciar al objeto Ciudad, reemplaza ese atributo por el idCiudad, ya que es el valor que asocia la lista seleccionable de la interfaz web
  *
  */
 public class PersonaForm {

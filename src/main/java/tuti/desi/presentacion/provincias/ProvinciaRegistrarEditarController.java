@@ -17,10 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.validation.Valid;
-import tuti.desi.entidades.Ciudad;
 import tuti.desi.entidades.Provincia;
 import tuti.desi.excepciones.Excepcion;
-import tuti.desi.servicios.CiudadService;
 import tuti.desi.servicios.ProvinciaService;
 
 /**
